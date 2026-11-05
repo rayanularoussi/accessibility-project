@@ -1,4 +1,4 @@
-import { useId, useState, type ReactNode } from "react";
+import { useState, useId, type ReactNode } from "react";
 import type { Workshop } from "../workshops";
 
 type Props = {
@@ -19,32 +19,38 @@ export default function WorkshopCard({ workshop, onReserve, extraAction }: Props
           : <img src={workshop.image} alt="" />}
         <span className="category">{workshop.category}</span>
       </div>
-      <button
-        type="button"
-        className="details-trigger"
-        aria-expanded={expanded}
-        aria-controls={panelId}
-        onClick={() => setExpanded(value => !value)}
-      >
-        Détails de l'atelier <span aria-hidden="true">{expanded ? "−" : "+"}</span>
-      </button>
-      <div
-        id={panelId}
-        className={"details-panel " + (expanded ? "is-open" : "")}
-        inert={!expanded}
-      >
-        <div className="details-inner">
-          <p>{workshop.description}</p>
-          <a href="#infos-pratiques">Consulter les informations pratiques</a>
+      <div className="card-body">
+        <p className="workshop-date">{workshop.date}</p>
+        <p className="workshop-title">{workshop.title}</p>
+        <p className="location">{workshop.location}</p>
+        <div className="card-meta"><span>{workshop.duration}</span><span>{workshop.price}</span></div>
+        <p className="availability">
+          <span className={"availability-dot " + (workshop.available ? "is-available" : "is-full")} aria-hidden="true" />
+          {workshop.available ? "Places disponibles" : "Complet"}
+        </p>
+        <button
+          type="button"
+          className="details-trigger"
+          aria-expanded={expanded}
+          aria-controls={panelId}
+          onClick={() => setExpanded(value => !value)}
+        >
+          Détails de l’atelier <span aria-hidden="true">{expanded ? "−" : "+"}</span>
+        </button>
+        <div className={"details-panel " + (expanded ? "is-open" : "")} aria-hidden={!expanded} inert={!expanded} id={panelId}>
+          <div className="details-inner">
+            <p>{workshop.description}</p>
+            <a href="#infos-pratiques">Consulter les informations pratiques</a>
+          </div>
         </div>
-      </div>
-      <div className="card-actions">
-        {workshop.available ? (
-          <button type="button" className="reserve-button" onClick={() => onReserve(workshop)}>
-            M’inscrire à {workshop.title}
-          </button>
-        ) : <p className="closed-message">Inscriptions closes</p>}
-        {extraAction}
+        <div className="card-actions">
+          {workshop.available ? (
+            <button type="button" className="reserve-button" onClick={() => onReserve(workshop)}>
+              M’inscrire à {workshop.title}
+            </button>
+          ) : <p className="closed-message">Inscriptions closes</p>}
+          {extraAction}
+        </div>
       </div>
     </article>
   );
