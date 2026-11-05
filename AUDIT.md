@@ -125,11 +125,27 @@ Ajouter role="status" à <p className={notice ? "notice" : "notice-empty"}>{noti
 
 ---
 
-
 ## Composant créé
 
-Expliquez vos principaux choix d’accessibilité et les manipulations réalisées pour les vérifier.
+Ajout du composant `QuestionDialog` pour gérer les questions des utilisateurs. Ce composant utilise l’élément `<dialog>`, qui est nommé par un titre précisant l’atelier. Il s’ouvre avec `showModal()` dans la page principale, juste en dessous de l'inscription à un atelier et place le focus sur son titre. Le formulaire utilise des contrôles HTML natifs comme un `<select>` sans sujet présélectionné, demander dans les consignes, un champ email et une zone de texte, chacun associé à un libellé et à une aide.
+
+Les champs sont validés avec `readRequest(form, "question", workshop.id)`. S'il y a un problème dans l'un des champs la modale reste ouverte, les valeurs saisies sont conservées et les messages d’erreur sont envoyé en dessous de chaque champ avec un focus sur le premier champ ayant un soucis. Après correction et envoi valide, la modale se ferme et une confirmation juste en dessous des cartes avec le nom de l’atelier et le sujet est affiché. Il est aussi possible d'annuler ou fermer, en plus d'envoyer, ce qui refocus sur le bouton d'envoie de question.
+
+Pour vérifier que tout fonctionne, des tests avec le lecteur d'écran, la navigation avec tab et les flèches directionnelles confirment la facilité d'utiliser le modal pour tous.
 
 ## Mini-test
 
-Indiquez le fichier, le résultat et ce que le test permet de vérifier.
+Le fichier de test est `src/__tests__/Composant.test.tsx`
+
+- On ouvre la fenêtre pour poser une question pour l'atelier du milieu "Une tasse en céramique" 
+- On choisit dans le sujet "Le matériel à apporter"
+Choisit le sujet « Le matériel à apporter »
+- Saisit la question "Le matériel est-il fourni ?" dans le sujet
+- Tente l’envoi sans renseigner l’adresse électronique (problème)
+- Vérifie que la modale reste ouverte et qu’une erreur d’adresse électronique apparaît bien
+- Vérifie que le sujet et la question saisis sont conservés
+- Vérifie qu’aucune confirmation d’envoi n’apparaît après l’envoi incomplet
+- Saisit une adresse électronique valide et renvoie le formulaire
+- Puis on vérifie que la modale se ferme et que la confirmation mentionne le sujet choisi et le bon atelier
+
+Le test passe correctement
