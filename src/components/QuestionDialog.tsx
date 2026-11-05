@@ -131,7 +131,7 @@ export default function QuestionDialog({
                 <div className="field">
                     <label htmlFor={id("message")}>Votre question</label>
                     <p id={id("message-help")} className="field-help">
-                        Décrivez votre question en quelques mots.
+                        Décrivez votre question.
                     </p>
 
                     <textarea
