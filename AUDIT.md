@@ -125,7 +125,6 @@ Ajouter role="status" à <p className={notice ? "notice" : "notice-empty"}>{noti
 
 ---
 
-<<<<<<< HEAD
 ## Problème 6 - Les titres des ateliers ne sont pas reconnus comme des titres par les lecteurs d'écran
 
 ### Problème identifié
@@ -153,8 +152,6 @@ Dans WorkshopCard.tsx, remplacer la balise < p> par une balise < h3>
 
 ---
 
-=======
->>>>>>> f95cea18474ba88345776faaa8c7450ba6dc5851
 ## Composant créé
 
 Ajout du composant `QuestionDialog` pour gérer les questions des utilisateurs. Ce composant utilise l’élément `<dialog>`, qui est nommé par un titre précisant l’atelier. Il s’ouvre avec `showModal()` dans la page principale, juste en dessous de l'inscription à un atelier et place le focus sur son titre. Le formulaire utilise des contrôles HTML natifs comme un `<select>` sans sujet présélectionné, demander dans les consignes, un champ email et une zone de texte, chacun associé à un libellé et à une aide.
