@@ -1,15 +1,34 @@
 import { useState } from "react";
 import WorkshopCard from "./components/WorkshopCard";
 import { workshops, type Workshop } from "./workshops";
+import QuestionDialog from "./components/QuestionDialog";
+import { requestOptions, type RequestValues } from "./requests";
 
 export default function App() {
   const [query, setQuery] = useState("");
   const [notice, setNotice] = useState("");
   const [bookingCount, setBookingCount] = useState(0);
+
+  const [questionWorkshop, setQuestionWorkshop] = useState<Workshop | null>(null);
+  const [questionConfirmation, setQuestionConfirmation] = useState("");
+
   const normalized = query.trim().toLocaleLowerCase("fr");
   const visible = workshops.filter(workshop =>
     `${workshop.title} ${workshop.location}`.toLocaleLowerCase("fr").includes(normalized),
   );
+
+  const sendQuestion = (values: RequestValues) => {
+    const workshop = workshops.find(w => w.id === values.workshopId);
+    if (!workshop)
+      return;
+
+      const subject = requestOptions.question.find(
+        option => option.value === values.choice
+      )?.label;
+
+      setQuestionConfirmation("Nous avons bien reçu votre question sur " + subject + " pour l’atelier " + workshop.title + ".");    
+      setQuestionWorkshop(null);
+  }
 
   const reserve = (workshop: Workshop) => {
     if (!workshop.available) return;
@@ -42,16 +61,39 @@ export default function App() {
           </div>
           {visible.length > 0 ? (
             <div className="workshop-grid">
-              {visible.map(workshop => <WorkshopCard key={workshop.id} workshop={workshop} onReserve={reserve} />)}
+              {visible.map(workshop => <WorkshopCard 
+                key={workshop.id} 
+                workshop={workshop} 
+                onReserve={reserve} 
+                extraAction={
+                  <button
+                    type="button"
+                    className="contact-button"
+                    onClick={() => setQuestionWorkshop(workshop)}
+                  >
+                    Poser une question par rapport à {workshop.title}
+                  </button>
+              }  />)}
             </div>
           ) : <p className="empty-state">Aucun atelier ne correspond. Essayez un autre titre ou une autre ville.</p>}
         </section>
+        {questionWorkshop && (
+          <QuestionDialog
+            workshop={questionWorkshop}
+            onClose={() => setQuestionWorkshop(null)}
+            onSubmit={sendQuestion}
+          />
+        )}
         <section className="how-it-works" id="infos-pratiques" aria-labelledby="how-title">
           <p className="eyebrow">À votre rythme</p><h2 id="how-title">Une découverte, simplement.</h2>
           <div className="how-grid"><div><span>01</span><h3>Choisissez votre atelier</h3><p>Retrouvez le lieu, la durée et le tarif dans le programme.</p></div><div><span>02</span><h3>Préparez votre venue</h3><p>Consultez les détails pour savoir ce qui est fourni et ce qu’il faut apporter.</p></div><div><span>03</span><h3>Prenez le temps de créer</h3><p>Les ateliers présentés ici sont fictifs. Toutes les actions sont des démonstrations locales.</p></div></div>
         </section>
         <div className="registration-result">
           <p className={notice ? "notice" : "notice-empty"}>{notice}</p>
+        </div>
+        <div className="registration-result">
+          <p className={notice ? "notice" : "notice-empty"}>{notice}</p>
+          <p role="status" aria-atomic="true">{questionConfirmation}</p>
         </div>
       </main>
       <footer><a className="brand" href="#accueil">Atelier<span>Local</span></a><p>Application pédagogique · Aucun envoi ni paiement réel.</p></footer>

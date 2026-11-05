@@ -82,23 +82,24 @@ Retirer le if pour mettre directement un champ <img src={workshop.image} alt={wo
 
 ---
 
-## Problème 4 - 
+## Problème 4 - Bouton M'inscrire impossible de savoir si il est selectionner
 
 ### Problème identifié
 
-
+Quand on Tab juste après Détails de l'atelier, on est bien sur le bouton "M'inscrire à Premiers pas en" mais le focus ne nous le montre pas, ainsi une confusion peut être présente pour l'utilisateur.
 
 ### Reproduction
 
-
+Tab jusqu'à Détails 
+Tab une nouvelle fois et on ne sais plus où est le focus
 
 ### Comportement attendu
 
-
+Le bouton "M'inscrire à Premiers pas en" doit être focusable
 
 ### Correction à apporter
 
-
+Retrait du style css .reserve-button:focus-visible{outline:none;box-shadow:none} qui retirait ce focus
 
 ---
 
