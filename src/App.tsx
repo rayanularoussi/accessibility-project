@@ -85,7 +85,7 @@ export default function App() {
           />
         )}
         <div className="registration-result">
-          <p className={notice ? "notice" : "notice-empty"}>{notice}</p>
+          <p className={notice ? "notice" : "notice-empty"} role="status">{notice}</p>
           <p role="status" aria-atomic="true">{questionConfirmation}</p>
         </div>
         <section className="how-it-works" id="infos-pratiques" aria-labelledby="how-title">

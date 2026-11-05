@@ -103,6 +103,29 @@ Retrait du style css .reserve-button:focus-visible{outline:none;box-shadow:none}
 
 ---
 
+## Problème 5 - Le message de préinscription n’est pas annoncé par lecteur d'écran
+
+### Problème identifié
+
+Dans App.tsx, après un clic sur "M’inscrire à", le message de confirmation s’affiche dans 
+< p className={notice ? "notice" : "notice-empty"} >
+,mais le focus reste sur le bouton, donc une personne qui utilise un lecteur d’écran n’entend rien et ne sait pas que l'action a été effectuée.
+
+### Reproduction
+
+Avec Narrator actif, utiliser le bouton "M’inscrire à" avec Entrée. Le message s'affiche, mais le narrateur ne le lit pas.
+
+### Comportement attendu
+
+Le message est annoncé automatiquement, sans déplacer le focus.
+
+### Correction à apporter
+
+Ajouter role="status" à <p className={notice ? "notice" : "notice-empty"}>{notice}</p>
+
+---
+
+
 ## Composant créé
 
 Expliquez vos principaux choix d’accessibilité et les manipulations réalisées pour les vérifier.
