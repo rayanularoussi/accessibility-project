@@ -125,6 +125,32 @@ Ajouter role="status" à <p className={notice ? "notice" : "notice-empty"}>{noti
 
 ---
 
+## Problème 6 - Les titres des ateliers ne sont pas reconnus comme des titres par les lecteurs d'écran
+
+### Problème identifié
+
+Dans src/components/WorkshopCard.tsx, le nom de chaque atelier est
+affiché dans une balise <p> : < p className="workshop-title">{workshop.title}</ p>
+En utilisant une balise <p>, il n'est pas identifié comme un titre sur la page.
+Les personnes utilisant un lecteur d'écran ne peuvent donc pas retrouver
+facilement les différents ateliers en naviguant de titre en titre.
+
+### Reproduction
+
+Utiliser la navigation par titres (insert + f7). Parcourir les titres de la pages.
+Les noms des ateliers n'y figurent pas.
+
+### Comportement attendu
+
+Chaque nom d'atelier doit être reconnu comme un titre de niveau 3
+(h3). Cela permet aux utilisateurs de lecteurs d'écran de parcourir rapidement
+les différents ateliers et de comprendre la structure de la page.
+
+### Correction à apporter
+
+Dans WorkshopCard.tsx, remplacer la balise < p> par une balise < h3>
+
+---
 
 ## Composant créé
 

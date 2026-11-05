@@ -19,7 +19,7 @@ export default function WorkshopCard({ workshop, onReserve, extraAction }: Props
       </div>
       <div className="card-body">
         <p className="workshop-date">{workshop.date}</p>
-        <p className="workshop-title">{workshop.title}</p>
+        <h3 className="workshop-title">{workshop.title}</h3>
         <p className="location">{workshop.location}</p>
         <div className="card-meta"><span>{workshop.duration}</span><span>{workshop.price}</span></div>
         <p className="availability">
