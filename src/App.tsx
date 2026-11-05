@@ -22,12 +22,12 @@ export default function App() {
     if (!workshop)
       return;
 
-      const subject = requestOptions.question.find(
-        option => option.value === values.choice
-      )?.label;
+    const subject = requestOptions.question.find(
+      option => option.value === values.choice
+    )?.label;
 
-      setQuestionConfirmation("Nous avons bien reçu votre question sur " + subject + " pour l’atelier " + workshop.title + ".");    
-      setQuestionWorkshop(null);
+    setQuestionConfirmation("Nous avons bien reçu votre question sur " + subject + " pour l’atelier " + workshop.title + ".");
+    setQuestionWorkshop(null);
   }
 
   const reserve = (workshop: Workshop) => {
@@ -61,10 +61,10 @@ export default function App() {
           </div>
           {visible.length > 0 ? (
             <div className="workshop-grid">
-              {visible.map(workshop => <WorkshopCard 
-                key={workshop.id} 
-                workshop={workshop} 
-                onReserve={reserve} 
+              {visible.map(workshop => <WorkshopCard
+                key={workshop.id}
+                workshop={workshop}
+                onReserve={reserve}
                 extraAction={
                   <button
                     type="button"
@@ -73,7 +73,7 @@ export default function App() {
                   >
                     Poser une question par rapport à {workshop.title}
                   </button>
-              }  />)}
+                } />)}
             </div>
           ) : <p className="empty-state">Aucun atelier ne correspond. Essayez un autre titre ou une autre ville.</p>}
         </section>
