@@ -42,7 +42,7 @@ le panneau reçoit `id={panelId}` et `inert={!expanded}` à la place de `aria-hi
 
 ### Problème identifié
 
-Le texte "Rechercher un atelier" est dans un <p className="search-label">Rechercher un atelier</p> qui n'est pas relier avec son input. Erreur identifier grâce à lighthouse : « Form elements do not have associated labels ». Ce qui rend complexe l'identification pour les malvoyants.
+Le texte "Rechercher un atelier" est dans un <p className="search-label">Rechercher un atelier</p> qui n'est pas relier avec son input. Erreur identifier grâce à lighthouse : " Form elements do not have associated labels ". Ce qui rend complexe l'identification pour les malvoyants.
 
 
 ### Reproduction
@@ -61,7 +61,28 @@ ce qui relie le texte au champ, permettant d'être identifier par le lecteur.
 
 ---
 
-## Problème 3 - une image n’a pas d’attribut `alt`
+## Problème 3 - l'image de "Premiers pas en sérigraphie" n’a pas d’attribut `alt`
+
+### Problème identifié
+
+L’image de l’atelier « Premiers pas en sérigraphie » est affichée sans `alt` (`<img src={workshop.image} />`), alors que les autres cartes utilisent `alt=""`. Un lecteur d'écran ne peut donc pas lire le nom du fichier. Erreur identifier grâce à lighthouse : 
+" Image elements do not have [alt] attributes "
+
+### Reproduction
+
+Naviguer jusqu’à la carte avec un lecteur d’écran ou inspecter l'elem <img> dans le code et constater qu’il n’a pas d’attribut alt.
+
+### Comportement attendu
+
+Chaque image doit avoir un alt pour avoir des informations la concernant en lecteur d'écran ou même sans.
+
+### Correction à apporter
+
+Retirer le if pour mettre directement un champ <img src={workshop.image} alt={workshop.title} /> avec un alt associé, permettant d'identifier le thème de l'image.
+
+---
+
+## Problème 4 - 
 
 ### Problème identifié
 
